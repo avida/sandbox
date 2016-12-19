@@ -9,16 +9,6 @@
 using namespace std;
 using namespace boost;
 
-void work()
-{
-   cout << "---> work performing"<< endl;
-}
-void tick()
-{
-   auto result = std::time(nullptr);
-   std::cout << "tick " << std::asctime(std::localtime(&result));
-}
-
 class ThreadWorker
 {
 public:
@@ -137,6 +127,7 @@ public:
 			}
          ContextPtr m_ctx;
    };
+
    class repetative_timer_wrapper: public repetative_timer_wrapper_base<repetative_timer_wrapper>
    {
    public:
@@ -145,12 +136,12 @@ public:
                   {}
    };
 
-   class three_tick_timer: public repetative_timer_wrapper_base<three_tick_timer>
+   class tick_timer: public repetative_timer_wrapper_base<tick_timer>
    {
    public:
-      three_tick_timer(FHandler f, asio::io_service& service, posix_time::seconds interval):
-                        repetative_timer_wrapper_base<three_tick_timer>(f, service, interval),
-                        m_ticks(0)
+      tick_timer(FHandler f, asio::io_service& service, posix_time::seconds interval, int ticks):
+                        repetative_timer_wrapper_base<tick_timer>(f, service, interval),
+                        m_ticks(ticks)
       {
          // cout <<"ctor\n";
       }
@@ -159,9 +150,9 @@ public:
       void resched()
       {
          cout << "ticks:" << m_ticks<< endl;
-         if (++m_ticks == 3)
+         if (--m_ticks == 0)
             return;
-		 repetative_timer_wrapper_base<three_tick_timer>::resched();
+		 repetative_timer_wrapper_base<tick_timer>::resched();
       }
    private:
       int m_ticks;
@@ -175,9 +166,12 @@ public:
       return boost::static_pointer_cast<ITimerContext>(wrapper.GetContext());
    }
 
-   void ScheduleRepetative(FHandler f, posix_time::seconds time)
+   TimerContextPtr
+   ScheduleRepetative(FHandler f, posix_time::seconds time, int ticks)
    {
-      Schedule(f, time);
+      auto wrapper = tick_timer(f, m_service, time, ticks);
+      m_service.post(wrapper);
+      return boost::static_pointer_cast<ITimerContext>(wrapper.GetContext());
    }
 
    void Wait()
@@ -208,22 +202,38 @@ asio_handler_invoke(F& function, ThreadWorker::wrapper<Handler>* w)
    cout << "function performed" << endl;
 }
 
-template<typename F>
-asio_handler_invoke(F& function, ThreadWorker::three_tick_timer* w)
+// template<typename F>
+// asio_handler_invoke(F& function, ThreadWorker::three_tick_timer* w)
+// {
+//    function();
+//    cout << "timer function performed" << endl;
+// }
+
+void work()
 {
-   function();
-   cout << "timer function performed" << endl;
+   cout << "---> work performing"<< endl;
+}
+
+void tick()
+{
+   auto result = std::time(nullptr);
+   std::cout << "tick " << std::asctime(std::localtime(&result));
+}
+
+void TimerCancel(ThreadWorker::TimerContextPtr timer_ctx)
+{
+   timer_ctx->CancelTimer();
+   cout << "Cancel\n";
 }
 
 int main()
 {
    ThreadWorker worker;
    auto timer_ctx = worker.Schedule(bind(tick), posix_time::seconds(1));
+   auto t2 = worker.ScheduleRepetative(bind(TimerCancel, timer_ctx), posix_time::seconds(2), 1);
    worker.Run(bind(work));
    worker.Run(bind(work));
-  boost::this_thread::sleep(boost::posix_time::seconds(3));
-   // timer_ctx->CancelTimer();
-   // boost::this_thread::sleep(boost::posix_time::seconds(4));
+   boost::this_thread::sleep(boost::posix_time::seconds(5));
    worker.Wait();
    return 0;
 }
