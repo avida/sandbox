@@ -26,13 +26,13 @@ void TimerCancel(ThreadWorker::TimerContextPtr timer_ctx)
 int main()
 {
    ThreadWorker worker;
-   auto timer_ctx = worker.Schedule(bind(tick), posix_time::seconds(1));
-   auto t2 = worker.ScheduleRepetative(bind(TimerCancel, timer_ctx), posix_time::seconds(2), 1);
-   worker.Run(bind(work));
+   auto timer_ctx = worker.Schedule(bind(tick), posix_time::seconds(3));
+   // auto t2 = worker.ScheduleRepetative(bind(TimerCancel, timer_ctx), posix_time::seconds(2), 1);
    // worker.Run(bind(work));
    // worker.Run(bind(work));
    // worker.Run(bind(work));
-   boost::this_thread::sleep(boost::posix_time::seconds(4));
+   // worker.Run(bind(work));
+   boost::this_thread::sleep(boost::posix_time::seconds(10));
    std::cout << "wait\n";
    worker.Wait();
    return 0;

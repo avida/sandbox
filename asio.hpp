@@ -37,7 +37,6 @@ public:
       }
 
       Handler m_f;
-
    };
 
    template <typename Handler>
@@ -89,7 +88,7 @@ public:
                                   m_ctx(new TimerContext<FHandler, Base>(f, service, interval))
          {
             boost::this_thread::sleep(boost::posix_time::milliseconds(100));
-            std::cout << __FUNCTION__ << ":" << __LINE__<< std::endl;
+            // std::cout << __FUNCTION__ << ":" << __LINE__<< std::endl;
          }
          repetative_timer_wrapper_base(const repetative_timer_wrapper_base<repetative_timer_wrapper_base>& other):m_ctx(other.m_ctx)
          {
@@ -125,6 +124,7 @@ public:
      private:
          void resched_int()
          {
+            std::cout << "resched_int \n";
             m_ctx->timer.expires_from_now(m_ctx->interval);
             m_ctx->timer.async_wait(*static_cast<Base*>(this));
          }
@@ -191,6 +191,7 @@ private:
          m_service.run();
          // m_service.run_one();
       }
+      std::cout << "bb\n";
    }
    
    boost::asio::io_service m_service;
