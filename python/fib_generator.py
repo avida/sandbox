@@ -12,6 +12,15 @@ def fib_gen(n):
     for i in range(1, n+1):
         yield fib(i)
 
+def fib_gen2(n):
+    a, b = 1, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
 for i in fib_gen(10):
     sys.stdout.write(f"{i} ")
 print()
+
+print(list(fib_gen2(10)))
+
