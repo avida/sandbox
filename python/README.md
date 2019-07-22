@@ -59,3 +59,13 @@ value is 2
 value is 2
 value changed to 53
 ```
+* [coroutine.py](./coroutine.py)
+
+Example of sending data to coroutine and getting value out of it,
+```
+first line
+second line
+Bingo
+Result is 12
+Stop Iteration
+```
