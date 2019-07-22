@@ -7,8 +7,9 @@ Some of them require python at least 3.6 version. For easy python version managi
 4. pyenv activate test_environment
 
 
-[async](async/)
-Directory with asyncio examples
+* [async](async/)
+
+asyncio examples directory.
 
 * [decorator.py](./decorator.py)
 
