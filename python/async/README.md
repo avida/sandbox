@@ -37,9 +37,10 @@ try future completed
 
 Run task in other thread and wait until it completed
 ```
-main tid: 139921831233280
+
+main tid    : 140375192315648
 Start thread
-thread tid: 139921738565376
-task tid: 139921831233280
+thread tid  : 140375099647744
+task tid    : 140375192315648
 Results: [42, 'Finished']
 ```
