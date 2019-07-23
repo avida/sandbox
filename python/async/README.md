@@ -44,3 +44,12 @@ thread tid  : 140375099647744
 task tid    : 140375192315648
 Results: [42, 'Finished']
 ```
+
+* [user_input.py](./user_input.py)
+
+Listen for user input and process it inside event loop.
+
+```
+Input line is asdg
+Interrupted by user
+```
