@@ -69,3 +69,48 @@ Bingo
 Result is 12
 Stop Iteration
 ```
+
+* [log.py](./log.py)
+
+Python built in logger example
+```
+DEBUG:root:Debug message
+INFO:root:Info message
+WARNING:root:Warn message
+ERROR:root:Error message
+CRITICAL:root:Critical message
+fileLogger: Info message
+fileLogger: Warn message
+fileLogger: Error message
+fileLogger: Critical message
+	Default logger
+	defaultToFile
+```
+* [else.py](./else.py)
+
+Demonstrate exotic else keyword usage in for loop and try statement
+```
+hi
+Random number not found
+except block
+finally block
+```
+
+* [attrs_test.py](./attrs_test.py)
+
+Create simple classes with attr module
+```
+Attribute(name='a', default=NOTHING, validator=<function SomeClass.check at 0x7fe09500e7b8>, repr=True, cmp=True, hash=None, init=True, metadata=mappingproxy({}), type=None, converter=None, kw_only=False) = 1
+Hi
+SomeClass(a=1, ss='Hi')
+{'a': 1, 'ss': 'Hi'}
+```
+
+* [crypto.py](./crypto.py)
+
+Generationg and serialization EC keypair with python cryptography module
+```
+Hi
+b'-----BEGIN EC PRIVATE KEY-----\nMIGkAgEBBDChBsHfs7vccT8JtWBUy39nvXRebhqxqh9FsnFQguwZIk5eEZeeDzCh\n1I8Ga0LeU0GgBwYFK4EEACKhZANiAAQLMmst5YwVxBp3Ijan1LcBQUq9j3YY/5ni\nC8FRYZzoXAk5VPCdWfVB0zJk3D4Dgp1xjwgyNwPoqRNj1uPZG9ArokIdvmLrrk8f\nAOnDMJTwhjxlxFPXpnFkQ+EhUXIa7n8=\n-----END EC PRIVATE KEY-----\n'
+b'-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAECzJrLeWMFcQadyI2p9S3AUFKvY92GP+Z\n4gvBUWGc6FwJOVTwnVn1QdMyZNw+A4KdcY8IMjcD6KkTY9bj2RvQK6JCHb5i665P\nHwDpwzCU8IY8ZcRT16ZxZEPhIVFyGu5/\n-----END PUBLIC KEY-----\n'
+```
