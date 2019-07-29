@@ -61,13 +61,17 @@ value changed to 53
 ```
 * [coroutine.py](./coroutine.py)
 
-Example of sending data to coroutine and getting value out of it,
+Example of sending data to coroutine and getting value out of it.
 ```
+
+yield generator object test
 first line
 second line
 Bingo
 Result is 12
 Stop Iteration
+async coroutine object test
+coroutine returned: Hello im coroutine
 ```
 
 * [log.py](./log.py)

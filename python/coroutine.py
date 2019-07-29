@@ -12,6 +12,7 @@ def print_name():
     except GeneratorExit:
         print(f"Generator exited")
     
+print("yield generator object test")
 c = print_name()
 next(c)
 c.send("first line")
@@ -23,3 +24,14 @@ except StopIteration:
     print("Stop Iteration")
     pass
 c.close()
+
+async def cor():
+    return "Hello im coroutine"
+
+print("async coroutine object test")
+f = cor()
+try:
+    f.send(None)
+except StopIteration as e:
+    print(f"coroutine returned: {e.value}")
+
