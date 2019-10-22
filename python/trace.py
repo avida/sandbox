@@ -8,6 +8,7 @@ try:
     print("asads")
     fun()
 except Exception as e:
-    traceback.print_exc()
-    print("by")
+    s = traceback.format_exc()
+    print(s)
+    print("bye")
 
